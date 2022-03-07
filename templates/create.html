@@ -9,5 +9,18 @@
 
 	<h3> Create your tree here</h3>
 
+	<!-- This form will take user's info -->
+	<form action="create" method="POST">
+		
+		<!-- for the csrf verification required -->
+		{% csrf_token %}
+
+		<input name="first_name">
+		<input name="last_name">
+		
+		<button>Add</button>
+
+	</form>
+
 </body>
 </html>
