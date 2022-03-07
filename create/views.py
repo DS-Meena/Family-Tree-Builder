@@ -21,4 +21,5 @@ def create(request):
 		'individuals': individuals
 	}
 
+	print(context)
 	return render(request, 'create.html', context)

@@ -7,10 +7,24 @@
 </head>
 <body>
 
+	<h3>Your Saved Data</h3>
+
+	<ul>
+		{% for ind in individuals %}
+
+		<!-- print info  -->
+		<li>
+			{{ind.first_Name}}
+			{{ind.last_Name}}
+		</li>
+
+		{% endfor %}
+	</ul>
+
 	<h3> Create your tree here</h3>
 
 	<!-- This form will take user's info -->
-	<form action="create" method="POST">
+	<form action="" method="POST">
 		
 		<!-- for the csrf verification required -->
 		{% csrf_token %}
