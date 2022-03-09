@@ -44,6 +44,13 @@
 	  border-radius: 12px;
 	}
 
+	/*styling the card*/
+	.form-card {
+
+	  width: 655px;
+	  margin: auto;
+	}
+
 	/* Style div elements that have class equal to tag */
 	.tag {
 	  padding: 4px 8px;
@@ -101,7 +108,6 @@
 	}
 
 
-
 </style>
 
 </head>
@@ -142,10 +148,13 @@
 		<!-- for the csrf verification required -->
 		{% csrf_token %}
 
-		<input name="first_name">
-		<input name="last_name">
-		
-		<button>Add</button>
+		<!-- Fields and button in same div -->
+		<div class="from-card">
+
+			{{form.as_p}}
+
+			<input type="submit" value="Submit" class="btn btn-secondary">
+		</div>
 
 	</form>
 
