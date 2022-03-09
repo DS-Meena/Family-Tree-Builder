@@ -8,8 +8,18 @@ class individual(models.Model):
 	last_Name = models.CharField(max_length = 100)
 	# # dob = models.DateField()
 
-	offspring = models.ManyToManyField('self', null=True, blank=True, related_name='offsprings', symmetrical=False)
-	parent = models.ManyToManyField('self', null=True, blank=True, related_name='parents', symmetrical=False)
+	mother = models.ForeignKey('self', 
+		models.SET_NULL, 
+		blank=True, 
+		null=True,
+		related_name='children_of_mother'
+		)
+	father = models.ForeignKey('self',
+		models.SET_NULL,
+		blank=True,
+		null=True,
+		related_name='child_of_father'
+		)
 
 	def __str__(self):
 		return self.first_Name;

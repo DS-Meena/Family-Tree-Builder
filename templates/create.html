@@ -131,9 +131,38 @@
 				<span>{{ind.parent}}</span>
 				<span>{{ind.offsprings}}</span>
 
-				<button>Add Parent</button>
-				<button>Add Offspring</button>
+				<!-- For adding parent of the individual -->
+				<form action="create/parent/{{ind.id}}" method="POST">
+					
+					<!-- for the csrf verification required -->
+					{% csrf_token %}
 
+					<!-- Fields and button in same div -->
+					<div class="from-card">
+
+						{{form.as_p}}
+
+						<button>Add Parent</button>
+					</div>
+
+				</form>
+				
+				<!-- For adding Offsprings of the individual -->
+				<form action="create/offspring" method="POST">
+					
+					<!-- for the csrf verification required -->
+					{% csrf_token %}
+
+					<!-- Fields and button in same div -->
+					<div class="from-card">
+
+						{{form.as_p}}
+
+						<button>Add offspring</button>
+					</div>
+
+				</form>
+				
 			</div>
 		</div>
 	</div>
