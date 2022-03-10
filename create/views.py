@@ -32,16 +32,48 @@ def create_parent(request, pk):
 
 	if form.is_valid():
 		new_individual = form.save(commit=False)
-
 		new_individual.save()
 
 		# add the parent
 		individuals = individual.objects.all()
+		curr = individuals.get(pk=pk)
 
-		print(individuals)
-		print(pk)
-		new_individual.father = individuals.get(pk=pk)
-		new_individual.save()
+		# check gender
+		if new_individual.gender == 'M':
+			curr.father = new_individual
+		else:
+			curr.mother = new_individual
 
+		curr.save()
 
 	return redirect('/create')
+
+
+
+
+
+
+
+
+# def create_parent(request, pk):
+
+# 	# request.method == 'POST':
+# 	form = IndividualForm(request.POST, request.FILES)
+
+# 	if form.is_valid():
+# 		new_individual = form.save(commit=False)
+# 		new_individual.save()
+
+# 		# add the parent
+# 		individuals = individual.objects.all()
+# 		parent = individuals.get(pk=pk)
+
+# 		# check gender
+# 		if parent.gender == 'M':
+# 			new_individual.father = individuals.get(pk=pk)
+# 		else:
+# 			new_individual.mother = individuals.get(pk=pk)
+
+# 		new_individual.save()
+
+# 	return redirect('/create')
