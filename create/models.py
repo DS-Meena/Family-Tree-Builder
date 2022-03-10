@@ -8,12 +8,11 @@ class individual(models.Model):
 	last_Name = models.CharField(max_length = 100)
 
 	# gender is import to classify b/w father and mother
-	# gender = models.CharField(max_length=1, 
-	# 	# choices=(('M', 'Male'), ('F', 'Female')),
-	# 	null=True,
-	# 	# default='M',
-	# 	# blank=True,
-	# 	)
+	gender = models.CharField(max_length=1, 
+		choices=(('M', 'Male'), ('F', 'Female')),
+		blank=False,
+		default=None,
+		)
 
 	# # dob = models.DateField()
 

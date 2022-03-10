@@ -6,16 +6,16 @@ from .models import individual
 class IndividualForm(ModelForm):
 	class Meta:
 		model = individual
-		fields = ['first_Name', 'last_Name']
+		fields = ['first_Name', 'last_Name', 'gender']
 
 		labels = {
 			'first_Name': 'First Name',
 			'last_Name': 'Last Name',
-			# 'gender': 'Gender',
+			'gender': 'Gender',
 		}
 
 		widgets = {
 			'first_Name': forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}),
 			'last_Name': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}),
-			# 'gender': forms.RadioSelect(attrs={'class': 'form-control', 'placeholder': 'Gender'}),
+			'gender': forms.RadioSelect(attrs={'class': 'form-control', 'placeholder': 'Gender'}),
 		}
