@@ -130,38 +130,31 @@
 				<span class="name">{{ind.last_Name}}</span>
 				<span>{{ind.gender}}</span>
 
-				<!-- For adding parent of the individual -->
-				<form action="create/parent/{{ind.id}}" method="POST">
-					
-					<!-- for the csrf verification required -->
-					{% csrf_token %}
+				{% if ind.father != None %}
+					Father: <span>{{ind.father}}</span>
+				{% endif %}
+				{% if ind.mother != None %}
+					Mother: <span>{{ind.mother}}</span>
+				{% endif %}
 
-					<!-- Fields and button in same div -->
-					<div class="from-card">
+				<!-- show form only if both parents are not added -->
+				{% if ind.mother == None or ind.father == None %}
+					<!-- For adding parent of the individual -->
+					<form action="create/parent/{{ind.id}}" method="POST">
+						
+						<!-- for the csrf verification required -->
+						{% csrf_token %}
 
-						{{form.as_p}}
+						<!-- Fields and button in same div -->
+						<div class="from-card">
 
-						<button>Add Parent</button>
-					</div>
+							{{form.as_p}}
 
-				</form>
-				
-				<!-- For adding Offsprings of the individual -->
-				<form action="create/offspring" method="POST">
-					
-					<!-- for the csrf verification required -->
-					{% csrf_token %}
+							<button>Add Parent</button>
+						</div>
 
-					<!-- Fields and button in same div -->
-					<div class="from-card">
-
-						{{form.as_p}}
-
-						<button>Add offspring</button>
-					</div>
-
-				</form>
-				
+					</form>
+				{% endif %}				
 			</div>
 		</div>
 	</div>
