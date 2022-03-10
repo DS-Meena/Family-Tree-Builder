@@ -11,9 +11,11 @@ class IndividualForm(ModelForm):
 		labels = {
 			'first_Name': 'First Name',
 			'last_Name': 'Last Name',
+			# 'gender': 'Gender',
 		}
 
 		widgets = {
 			'first_Name': forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}),
 			'last_Name': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}),
+			# 'gender': forms.RadioSelect(attrs={'class': 'form-control', 'placeholder': 'Gender'}),
 		}

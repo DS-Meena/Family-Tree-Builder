@@ -6,6 +6,15 @@ from django.db import models
 class individual(models.Model):
 	first_Name = models.CharField(max_length = 100)
 	last_Name = models.CharField(max_length = 100)
+
+	# gender is import to classify b/w father and mother
+	# gender = models.CharField(max_length=1, 
+	# 	# choices=(('M', 'Male'), ('F', 'Female')),
+	# 	null=True,
+	# 	# default='M',
+	# 	# blank=True,
+	# 	)
+
 	# # dob = models.DateField()
 
 	mother = models.ForeignKey('self', 

@@ -40,7 +40,7 @@ def create_parent(request, pk):
 
 		print(individuals)
 		print(pk)
-		new_individual.parent = individuals.get(pk=pk)
+		new_individual.father = individuals.get(pk=pk)
 		new_individual.save()
 
 
