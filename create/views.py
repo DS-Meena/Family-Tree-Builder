@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import individual
 from .forms import IndividualForm
+from .utils import *
 
 # Create your views here.
 def create(request):
@@ -17,11 +18,15 @@ def create(request):
 
 		return redirect('/create')
 
+	# create multiple trees
+	trees = create_trees()
+
 	form = IndividualForm
 	context = {
 		'individuals': individuals,
 		'form': form,
 	}
+
 	# print("Offsprings", individuals[0].id)
 	return render(request, 'create.html', context)
 
