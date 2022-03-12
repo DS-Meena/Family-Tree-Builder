@@ -106,7 +106,73 @@
 	  background-color: #0077ff;
 	  color: #e0efff;
 	}
+	/* Button used to open the contact form - fixed at the bottom of the page */
+	.open-button {
+	  background-color: #555;
+	  color: white;
+	  padding: 16px 20px;
+	  border: none;
+	  cursor: pointer;
+	  opacity: 0.8;
+	  position: fixed;
+	  bottom: 23px;
+	  right: 28px;
+	  width: 150px;
+	}
 
+	/* The popup form - hidden by default */
+	.form-popup {
+	  display: none;
+	  position: fixed;
+	  bottom: 0;
+	  right: 25px;
+	  border: 3px solid #f1f1f1;
+	  z-index: 9;
+	}
+
+	/* Add styles to the form container */
+	.form-container {
+	  max-width: 300px;
+	  padding: 20px 20px;
+	  background-color: white;
+	}
+
+	/* Full-width input fields */
+	.form-container input[type=text], .form-container input[type=password] {
+	  width: 100%;
+	  padding: 5px;
+	  margin: 5px 0 10px 0;
+	  border: none;
+	  background: #f1f1f1;
+	}
+ 
+	/* When the inputs get focus, do something */
+	.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+	  background-color: #ddd;
+	  outline: none;
+	}
+
+	/* Set a style for the submit/login button */
+	.form-container .btn {
+	  background-color: #04AA6D;
+	  color: white;
+	  padding: 10px 5px;
+	  border: none;
+	  cursor: pointer;
+	  width: 80%;
+	  margin-bottom:5px;
+	  opacity: 0.8;
+	}
+
+	/* Add a red background color to the cancel button */
+	.form-container .cancel {
+	  background-color: red;
+	}
+
+	/* Add some hover effects to buttons */
+	.form-container .btn:hover, .open-button:hover {
+	  opacity: 1;
+	}
 
 </style>
 
@@ -115,54 +181,74 @@
 
 	<h3>Your Saved Data</h3>
 
+	<table border = "1">
+         <tr>
+            <td>Row 1, Column 1</td>
+            <td>Row 1, Column 1</td>
+         </tr>
+      </table>
+
+    <table border = "1">
+
 	<!-- let's try prining in an hierarchy -->
-	<!-- {{individuals}} -->
+	{% for gen in family %}
 
-	<!-- Invididual cards -->
-	{% for ind in individuals %}
+		<tr>
+		<!-- print the members in this generation -->
+		{% for ind in gen %}
 
-	<!-- container class -->
-	<div id="container">
+			<td>	
+			<!-- container class -->
+			<div id="container">
 
-		<!-- individual card -->
-		<div class="card">
-			
-			<div class = "card_details">
-				
-				Name: <span class="name">{{ind.first_Name}}</span>
-				<span class="name">{{ind.last_Name}}</span>
-				<span>{{ind.gender}}</span>
-
-				{% if ind.father != None %}
-					Father: <span>{{ind.father}}</span>
-				{% endif %}
-				{% if ind.mother != None %}
-					Mother: <span>{{ind.mother}}</span>
-				{% endif %}
-
-				<!-- show form only if both parents are not added -->
-				{% if ind.mother == None or ind.father == None %}
-					<!-- For adding parent of the individual -->
-					<form action="create/parent/{{ind.id}}" method="POST">
+				<!-- individual card -->
+				<div class="card">
+					
+					<div class = "card_details">
 						
-						<!-- for the csrf verification required -->
-						{% csrf_token %}
-
-						<!-- Fields and button in same div -->
-						<div class="from-card">
-
-							{{form.as_p}}
-
-							<button>Add Parent</button>
-						</div>
-
-					</form>
-				{% endif %}				
+						Name: <span class="name">{{ind.first_Name}} {{ind.last_Name}}</span>
+						<br>
+						<span>Gender: {{ind.gender}}</span>
+						<br> 
+						{% if ind.father != None %}
+							Father: <span>{{ind.father}}</span>
+						{% endif %}
+						{% if ind.mother != None %}
+							Mother: <span>{{ind.mother}}</span>
+						{% endif %}
+		
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
+
+			</td>
+		{% endfor %}
+		</tr>
 
 	{% endfor %}
+	</table>
+
+	<!-- ADD RELATIONSHIP FORM -->
+	<div class="form-popup" id="myForm" id="{{ind.id}}">
+	  <form action="create/relation/" method="POST" class="form-container">
+
+	    <!-- for the csrf verification required -->
+		{% csrf_token %}
+
+		<!-- Fields and button in same div -->
+		<div class="from-card">
+
+			{{relationForm.as_p}}
+
+		    <button type="submit" class="btn">relate</button>
+		    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+
+		</div>
+	  </form>
+	</div>
+
+	<!-- TO SHOW FORM BUTTON -->	
+	<button class="open-button" onclick="openForm()">Add Relation</button>
 
 	<h3> Create your tree here</h3>
 
@@ -181,6 +267,20 @@
 		</div>
 
 	</form>
+
+
+<!-- JAVASCRIPT -->
+
+<!-- TO SHOW AND HIDE FORM -->
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
 
 </body>
 </html>

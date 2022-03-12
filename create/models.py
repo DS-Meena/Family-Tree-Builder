@@ -4,7 +4,7 @@ from django.db import models
 
 # create a class to store individuals info
 class individual(models.Model):
-	first_Name = models.CharField(max_length = 100)
+	first_Name = models.CharField(primary_key = True, max_length = 100)
 	last_Name = models.CharField(max_length = 100)
 
 	# gender is import to classify b/w father and mother
@@ -28,6 +28,26 @@ class individual(models.Model):
 		null=True,
 		related_name='child_of_father'
 		)
+	spouse = models.ForeignKey('self',
+		models.SET_NULL,
+		blank=True,
+		null=True,
+		related_name='Spouse'
+		)
 
 	def __str__(self):
 		return self.first_Name;
+
+# let's create a relationship model
+class relationship(models.Model):
+	personA = models.CharField(max_length=100)
+	personB = models.CharField(max_length=100)
+
+	relation = models.CharField(max_length=20,
+		choices=(('S', 'Spouse'), ('F', 'Father'), ('M', 'Mother')),
+		blank=False,
+		default=None,
+		)
+
+	def __str__(self):
+		return self.personA+self.personB;

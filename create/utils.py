@@ -22,11 +22,11 @@ def create_trees():
 				level.append(child)
 
 		if len(level) != 0:
-			trees.append(level)
+			trees.append(list(set(level)))
 		idx += 1
 
-	for lst in trees:
-		print(lst[0])
+	# for lst in trees:
+	# 	print(lst[0])
 
 	return trees
 
