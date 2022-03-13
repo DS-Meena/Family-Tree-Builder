@@ -11,29 +11,7 @@
 <!-- The family tree JS -->
 <script src="/static/familytree.js"></script>
 <script type="text/javascript">
-
-	// MAKE THE FAMILY JSON FILE HERE
-
-	// nodes: [
- //          { id: 1, pids: [2], name: "Amber McKenzie", Age: "232938"},
- //          { id: 2, pids: [1], name: "Ava Field" },
- //          { id: 3, mid: 1, fid: 2, name: "Peter Stevens" }  
- //      ]
-
-  FT = [
-		{% for gen in family %}
-				{% for mem in gen %}
-				{
-					id: {{mem.id}}, 
-					name: {{mem.first_Name}},
-				}
-				{% endfor %}
-		{% endfor %}
-  ]
-
-
-	var name = {{family}};
-
+ // js code if you want can write here
 </script>
 
 </head>
@@ -141,11 +119,33 @@
           field_0: "name"
       },
 
+      // MAKE THE FAMILY JSON FILE HERE
       nodes: [
-          { id: 1, pids: [2], name: "Amber McKenzie", Age: "232938"},
-          { id: 2, pids: [1], name: "Ava Field" },
-          { id: 3, mid: 1, fid: 2, name: "Peter Stevens" }  
-      ]
+      	{% for gen in family %}
+					{% for mem in gen %}
+					{ 
+						id: {{mem.id}}, 
+						
+						{% if mem.spouse != None %}
+						pids: [{{mem.spouse.id}}],
+						{% endif %}
+						
+						name: "{{mem.name}}",
+						
+						
+						gender: "{{mem.gender}}"
+
+					}, 
+					{% endfor %}
+				{% endfor %}
+      ] 
+
+      // nodes: [
+      //     { id: 1, pids: [2], name: "Amber McKenzie", Age: "232938"},
+      //     { id: 2, pids: [1], name: "Ava Field" },
+      //     { id: 3, mid: 1, fid: 2, name: "Peter Stevens" }  
+      // ]
+
   });
 </script> 
 
