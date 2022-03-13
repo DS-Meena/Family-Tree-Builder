@@ -129,12 +129,22 @@
 						{% if mem.spouse != None %}
 						pids: [{{mem.spouse.id}}],
 						{% endif %}
+						{% if mem.mother != None %}
+						mid: {{mem.mother.id}},
+						{% endif %}
+						{% if mem.father != None %}
+						fid: {{mem.father.id}},
+						{% endif %}
 						
 						name: "{{mem.name}}",
 						
-						
-						gender: "{{mem.gender}}"
+						{% if mem.gender == "M" %}
+							gender: "male"
+						{% endif %}
 
+						{% if mem.gender == "F" %}
+							gender: "female"
+						{% endif %}
 					}, 
 					{% endfor %}
 				{% endfor %}
