@@ -45,8 +45,8 @@ def create_relation(request):
 		# get the individuals
 		individuals = individual.objects.all()
 		
-		north =  individuals.get(pk=Relation.personA)
-		south = individuals.get(pk=Relation.personB)
+		north =  individuals.get(name=Relation.personA)
+		south = individuals.get(name=Relation.personB)
 		relation_ = Relation.relation
 
 		print(north, south, relation_)

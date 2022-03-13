@@ -4,8 +4,7 @@ from django.db import models
 
 # create a class to store individuals info
 class individual(models.Model):
-	first_Name = models.CharField(primary_key = True, max_length = 100)
-	last_Name = models.CharField(max_length = 100)
+	name = models.CharField(unique = True, max_length = 100)
 
 	# gender is import to classify b/w father and mother
 	gender = models.CharField(max_length=1, 
@@ -36,7 +35,7 @@ class individual(models.Model):
 		)
 
 	def __str__(self):
-		return self.first_Name;
+		return self.name;
 
 # let's create a relationship model
 class relationship(models.Model):
