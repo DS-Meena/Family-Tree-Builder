@@ -20,6 +20,7 @@ def create(request):
 
 	# create multiple trees
 	trees = create_trees()
+	print(trees)
 
 	form = IndividualForm
 	relationForm = RelationshipForm
@@ -30,7 +31,6 @@ def create(request):
 		'relationForm': relationForm,
 	}
 
-	# print("Offsprings", individuals[0].id)
 	return render(request, 'create.html', context)
 
 def create_relation(request):
