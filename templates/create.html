@@ -14,60 +14,21 @@
  // js code if you want can write here
 </script>
 
+<style type="text/css">
+	
+	
+</style>
+
 </head>
 <body>
 
-	<h3>Your Saved Data</h3>
-
-	<table border = "1">
-         <tr>
-            <td>Row 1, Column 1</td>
-            <td>Row 1, Column 1</td>
-         </tr>
-      </table>
+	<h2>Your Family Tree</h2>
 
     <table border = "1">
+    	<!-- this contains the tree -->
+    	<div style="width:100%; height:100%;" id="tree"/>
+   	</table>
 
-    <div style="width:100%; height:700px;" id="tree"/>
-
-
-	<!-- let's try prining in an hierarchy -->
-	{% for gen in family %}
-
-		<tr>
-		<!-- print the members in this generation -->
-		{% for ind in gen %}
-
-			<td>	
-			<!-- container class -->
-			<div id="container">
-
-				<!-- individual card -->
-				<div class="card">
-					
-					<div class = "card_details">
-						
-						Name: <span class="name">{{ind.name}}</span>
-						<br>
-						<span>Gender: {{ind.gender}}</span>
-						<br> 
-						{% if ind.father != None %}
-							Father: <span>{{ind.father}}</span>
-						{% endif %}
-						{% if ind.mother != None %}
-							Mother: <span>{{ind.mother}}</span>
-						{% endif %}
-		
-					</div>
-				</div>
-			</div>
-
-			</td>
-		{% endfor %}
-		</tr>
-
-	{% endfor %}
-	</table>
 
 	<!-- ADD RELATIONSHIP FORM -->
 	<div class="form-popup" id="myForm" id="{{ind.id}}">
@@ -91,12 +52,12 @@
 	<!-- TO SHOW FORM BUTTON -->	
 	<button class="open-button" onclick="openForm()">Add Relation</button>
 
-	<h3> Create your tree here</h3>
 
-	<!-- This form will take user's info -->
-	<form action="" method="POST">
-		
-		<!-- for the csrf verification required -->
+	<!-- ADD INDIVIDUAL FORM -->
+	<div class="form-popup2" id="myIndForm">
+	  <form action="" method="POST" class="form-container">
+
+	    <!-- for the csrf verification required -->
 		{% csrf_token %}
 
 		<!-- Fields and button in same div -->
@@ -104,10 +65,15 @@
 
 			{{form.as_p}}
 
-			<input type="submit" value="Submit" class="btn btn-secondary">
-		</div>
+		    <button type="submit" class="btn">Add</button>
+		    <button type="button" class="btn cancel" onclick="closeIndForm()">Close</button>
 
-	</form>
+		</div>
+	  </form>
+	</div>
+
+	<!-- TO SHOW FORM BUTTON -->	
+	<button class="add-button" onclick="openIndForm()">Add Individual</button>
 
 
 <!-- JAVASCRIPT -->
@@ -115,6 +81,8 @@
 <script>
 
   var family = new FamilyTree(document.getElementById("tree"), {
+      mouseScrool: FamilyTree.none,
+
       nodeBinding: {
           field_0: "name"
       },
@@ -164,11 +132,24 @@
 <script>
 function openForm() {
   document.getElementById("myForm").style.display = "block";
+  
+  // when open one form other should be closed
+  closeIndForm()
 }
 
 function closeForm() {
   document.getElementById("myForm").style.display = "none";
 }
+
+function openIndForm() {
+  document.getElementById("myIndForm").style.display = "block";
+  closeForm()
+}
+
+function closeIndForm() {
+  document.getElementById("myIndForm").style.display = "none";
+}
+
 </script>
 
 </body>
