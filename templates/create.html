@@ -75,6 +75,8 @@
 	<!-- TO SHOW FORM BUTTON -->	
 	<button class="add-button" onclick="openIndForm()">Add Individual</button>
 
+	<!-- TO DELETE AN INDIVIDUAL -->
+
 
 <!-- JAVASCRIPT -->
 
@@ -82,10 +84,18 @@
 
   var family = new FamilyTree(document.getElementById("tree"), {
       mouseScrool: FamilyTree.none,
+      enableSearch: false,
 
       nodeBinding: {
           field_0: "name"
       },
+
+      nodeMenu: {
+				remove: {
+					text:"Remove",
+					onClick: deleteInd
+				} 
+    	},
 
       // MAKE THE FAMILY JSON FILE HERE
       nodes: [
@@ -107,24 +117,28 @@
 						name: "{{mem.name}}",
 						
 						{% if mem.gender == "M" %}
-							gender: "male"
+							gender: "male",
 						{% endif %}
 
 						{% if mem.gender == "F" %}
-							gender: "female"
+							gender: "female",
 						{% endif %}
 					}, 
 					{% endfor %}
 				{% endfor %}
       ] 
 
-      // nodes: [
-      //     { id: 1, pids: [2], name: "Amber McKenzie", Age: "232938"},
-      //     { id: 2, pids: [1], name: "Ava Field" },
-      //     { id: 3, mid: 1, fid: 2, name: "Peter Stevens" }  
-      // ]
-
   });
+
+  function deleteInd(nodeId) {
+    var nodeData = family.get(nodeId);
+    var employeeName = nodeData["name"];
+
+    var url = 'create/delete/' + nodeId;
+    window.location.href = url;
+    console.log(employeeName);
+}
+
 </script> 
 
 

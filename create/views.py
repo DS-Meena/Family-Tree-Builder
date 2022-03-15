@@ -64,6 +64,19 @@ def create_relation(request):
 
 	return redirect('/create')
 
+def delete_ind(request, id):
+
+	# get the individual name
+	name = individual.objects.filter(id=id)[0].name
+
+	# delete individual object
+	individual.objects.filter(id=id).delete()
+
+	# # delete relationship object
+	relationship.objects.filter(personA=name).delete()
+	relationship.objects.filter(personB=name).delete()
+
+	return redirect('/create')
 
 def create_parent(request, pk):
 
