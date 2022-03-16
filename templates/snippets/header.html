@@ -1,0 +1,178 @@
+{% load static %}
+
+<style type="text/css">
+	.chat-dropdown-header:hover{
+		cursor: pointer;
+		background: var(--main-background-color);
+	}
+	.chat-dropdown-header{
+		color: var(--light-primary-text-color);
+	}
+
+	.margin{
+		margin-right:1em;
+	}
+
+.navbar-dark .navbar-brand {
+    color: #FF1493 ;
+}
+
+	.headtitle{
+  font-size: 28px;
+  font-style: italic;
+  font-weight: bold;
+  font-family: 'Averia Serif Libre', cursive;
+}
+.headlinks{
+	font-size:20px;
+  font-family: 'Averia Serif Libre';
+	}
+
+.searchbarcont{
+	width:60em;
+	display:flex;
+	justify-content:center;
+}
+
+.nav-link{
+	margin-top:10%;
+}
+
+.flexright{
+	position:absolute;
+	right:16px;
+}
+.flexcont{
+	width:10em;
+	justify-content:space-evenly;
+}
+
+.material-icons{
+color:white;
+}
+
+</style>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&display=swap" rel="stylesheet">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <!-- Navbar content -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <li class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a class="navbar-brand headtitle" >Converse</a>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item ">
+        <a class="nav-link headlinks" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li  class="nav-item ">
+		  <a class="nav-link headlinks" href="">Blogs</a>
+      </li>
+		  {% if request.user.is_authenticated %}
+    <li class="nav-item searchbarcont">
+		<form class="form-inline " onsubmit="return executeQuery();">
+      <input class="form-control mx-2 " style="width:20em" type="text" name="q" name="q" id="id_q" placeholder="Search Users" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+	</form>
+		</li>
+	  	{% else %}
+			<!-- <h3>Register to search</h3> -->
+		{% endif %}
+{% if request.user.is_authenticated %}
+					<li class="dropdown dropleft show p-2 flexright">
+
+
+						<div class="d-flex flex-row flexcont">
+<!--								<div class="d-flex notifications-icon-container rounded-circle align-items-center mr-3" id="id_chat_notification_dropdown_toggle">-->
+<!--									<span id="id_chat_notifications_count" class="notify-badge"></span>-->
+<!--									<span class="d-flex material-icons notifications-material-icon m-auto align-items-center">chat</span>-->
+<!--									<div class="dropdown-menu scrollable-menu" aria-labelledby="id_chat_notification_dropdown_toggle" id="id_chat_notifications_container">-->
+<!--									</div>-->
+<!--							</div>-->
+
+								<div class="btn d-flex flex-row d-flex notifications-icon-container rounded-circle align-items-center mr-3" onclick="window.location.href = ">
+									<span class="d-flex material-icons notifications-material-icon m-auto align-items-center">chat</span>
+
+								</div>
+
+							<!-- this is the account signs, dropdown menu -->
+							<div class="btn-group dropleft"><!-- 
+								<img class="account-image rounded-circle m-auto d-block dropdown-toggle" id="id_profile_links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="{% static 'icons/account.png' %}" alt="my logo" width="40" height="40"> -->
+								
+
+								<img class="account-image rounded-circle m-auto d-block dropdown-toggle" id="id_profile_links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  src="{% static 'icons/account_3.png' %}" alt="my logo" width="40" height="40">
+								
+
+								<div class="dropdown-menu" aria-labelledby="id_profile_links">
+									<a class="dropdown-item" href="">Account</a>
+									<a class="dropdown-item" href="">Logout</a>
+								</div>
+							</div>
+						</div>
+
+					</li>
+				{% else %}
+				<div class="flexright" style="margin-top:10px">
+					<a class="btn btn-success margin " href="{% url 'login' %}">Login</a>
+					<a class="btn btn-outline-primary margin " href="{% url 'register' %}">Register</a>
+				</div>
+					{% endif %}
+  </li>
+    </ul>
+</nav>
+
+<!--</div>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+</script>
+<!-- for the search users (on header) -->
+<script type="text/javascript">
+	// for drop down thing
+	setupChatDropdownHeader()
+
+	function executeQuery() {
+		var query = ""
+		query = document.getElementById('id_q').value;
+		console.log(query)
+		if (query == ""){
+			query = document.getElementById('id_q').value;
+		}
+	    window.location.replace("" + query)
+	    return false
+	}
+
+	/*
+		Add a header to the dropdown so users can visit /chat/
+	*/
+	function setupChatDropdownHeader(){
+		var notificationContainer = document.getElementById("id_chat_notifications_container")
+
+		if(notificationContainer != null){
+
+			var div = document.createElement("div")
+			div.classList.add("chat-dropdown-header", "d-flex", "flex-row", "justify-content-end", "m-auto", "align-items-end")
+			div.addEventListener("click", function(e){
+				var url = ""
+				chatRedirect(url)
+			})
+
+			span1 = document.createElement("span")
+			span1.classList.add("mr-2")
+			span1.innerHTML = "Go to chat"
+			div.appendChild(span1)
+
+			span2 = document.createElement("span")
+			span2.classList.add("material-icons", "mr-2")
+			span2.innerHTML = "open_with"
+			div.appendChild(span2)
+			notificationContainer.appendChild(div)
+		}
+	}
+
+	function chatRedirect(url){
+		window.location.href = url
+	}
+
+
+</script>

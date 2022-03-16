@@ -1,0 +1,284 @@
+<!-- add inside the folder named on the chatapp
+because django accesses it first
+ -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- add the html here to edit the page -->
+<style type="text/css">
+	.my-grid{
+		border: 1px solid black;
+	}
+	.my-grid-item{
+		border: 1px solid blue;
+	}
+	/*this styles are for the list of users connect*/
+    .users-container:hover{
+        background: var(--main-background-color);
+        cursor: pointer;
+    }
+    .users-list-container{
+        max-height: 500px;
+        overflow-y: scroll;
+    }
+    /*for the chatrooms list */
+    .for-hover:hover {
+    	background: var(--main-background-color);
+        cursor: pointer;
+	}
+	a, a:hover, a:focus, a:active {
+     text-decoration: none;
+     color: inherit;
+ 	}
+ 	.right-shift {
+ 		margin-right: 0px;
+ 	}
+
+    .msg-p{
+        font-weight: 450;
+        margin-top: 5px;
+        margin-bottom: auto;
+        margin-left: 5px;
+        margin-right: 5px;
+        white-space: normal;
+        -ms-word-break: break-all;
+        word-break: break-all;
+    }
+    .message-container{
+        margin-top: 10px;
+        justify-content: start;
+    }
+	.column{
+		float:left;
+		width:100%;
+	}
+	.vl {
+  border-left: 6px solid gray;
+  height: 500px;
+  position: absolute;
+  left: 50%;
+  margin-left: -3px;
+  top: 0;
+}
+
+.bgimg{
+	    background-image: url(https://images.unsplash.com/photo-1464618663641-bbdd760ae84a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mjl8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80);
+    background-size: cover;
+    background-position : center;
+}
+
+.row{
+	margin-top:-100px;
+	justify-content:center;
+}
+
+label{
+	font-size:20px;
+	display:flex;
+	margin-top:50px;
+	font-weight:400;
+}
+
+.display-4 {
+    font-size: 3.5rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.lead {
+    font-size: 1.6rem;
+    color: white;
+    font-weight: 400;
+text-shadow: -1px 1px 0 #000,
+				  1px 1px 0 #000,
+				 1px -1px 0 #000,
+				-1px -1px 0 #000;
+				margin-bottom: 50px;
+}
+
+.row{
+	padding: 100px 10px 0px 10px;
+}
+
+</style>
+
+<!-- Flexbox: https://css-tricks.com/snippets/css/a-guide-to-flexbox/ -->
+
+
+	<!-- 
+	using an if else block to give different option
+	for logged in and logged out -->
+	{% if request.user.is_authenticated %}
+ <div class="bgimg position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center ">
+      <div class="col-md-6 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 font-weight-normal">Join a Chatroom</h1>
+        <p class="lead font-weight-normal">Enter the chatroom name you would like to join.</p>
+		<!-- ask the chatroom name from user -->
+    	<input class="form-control" id="room-name-input" type="text" size="100" placeholder="Enter name here...">
+    	<br>
+		  <button class="btn btn-success col-md-3" id="room-name-submit" type="button" >Join</button>
+
+	  </div>
+      <div class="product-device box-shadow d-none d-md-block"></div>
+      <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
+
+        <!-- shows the active chatrooms -->
+        <div class="col-sm-3 m-0 p-2 listsize">
+            <div class="card">
+
+                <!-- header of list -->
+                <div class="d-flex flex-row align-items-center card-header">
+                    <h3 >Active chatrooms</h3>
+                </div>
+
+                <!-- body of list -->
+                <div class="card-body p-1"> 
+                    <div class="d-flex flex-column users-list-container" id="users-list">
+                        <!-- this will contain list of my connected users -->
+                        <!-- so we can access the room names here only -->
+                      {% for room in rooms%}
+                        {% if  room.1 > 0 %}
+                                  <a href="/room/{{room.0}}">
+                        <div class="d-flex flex-row p-2 flex-grow-1 for-hover">
+                          <div class="flex-column">
+                              <p> <b>
+                            <span>
+                                <!-- check if chatroom is not empty -->
+                                  {{room.0}}
+                                  <h9 class="right-shift">
+                                   {{room.1}}
+                                  </h9>
+                                <b>
+                              </p>
+                            </span>
+                          </div>
+                        </div>
+                              </a>
+
+						{% endif %}
+                      {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+	
+	{% else %}
+
+		<!-- here will we ask of unknown user's user handle and room name -->
+		<!-- we will try to use forms -->
+
+		<!-- <input id="user-input" type="text" size="100">
+    	<br>
+		<h5>Room Name: </h5>
+		<input id="room-input" type="text" size="100">
+    	<br> 
+    	<input id="room-submit" type="button" value="Quick Chat"> -->
+
+ <div class="bgimg position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center ">
+    <div class="column col-md-6 p-lg-5 mx-auto my-5">
+      <h1 class="display-4 fw-normal">Create Chatroom</h1>
+      <p class="lead fw-normal">Instantly host a chatroom without registering yourself.</p>
+    </div>
+
+<!--	 <div class="vl"></div>-->
+<!--	-->
+	 <div class="column col-md-6 p-lg-5 mx-auto my-5">
+		<form action="" method="post">
+
+  		<div class="form-group row">
+    	<div class="col-sm-6">
+      		{% csrf_token %}
+			{{form.as_p}}
+		<button type="submit" class="btn btn-primary">Quick Chat</button>
+    	</div>
+  		</div>
+		</form>
+
+    </div>
+
+    <!-- show the active chatrooms list -->
+    <div class="col-sm-3 m-0 p-2 listsize">
+            <div class="card">
+
+                <!-- header of list -->
+                <div class="d-flex flex-row align-items-center card-header">
+                    <h3 >Active chatrooms</h3>
+                </div>
+
+                <!-- body of list -->
+                <div class="card-body p-1"> 
+                    <div class="d-flex flex-column users-list-container" id="users-list">
+                        <!-- this will contain list of my connected users -->
+                        <!-- so we can access the room names here only -->
+                        <!-- <p>room name  &emsp;&emsp;&emsp;&emsp; No. of users</p> -->
+                      {% for room in rooms %}
+                                {% if  room.1 > 0 %}
+                        <div class="d-flex flex-row p-2 flex-grow-1">
+                          <div class="flex-column">
+                            <span>
+                              <p><b>
+                                <!-- check if chatroom is not empty -->
+                                  {{room.0}}
+                                  <h9>
+                                   {{room.1}}
+                                  </h9>
+                                <b>
+                              </p>
+                            </span>
+                          </div>
+                        </div>
+
+                                {% endif %}
+                      {% endfor %}
+                    </div>
+                </div>
+            </div>
+    </div>
+
+  </div>
+
+	{% endif %}	
+
+
+
+<script>
+	// different script for different authenticated and unauthenticated
+	{% if request.user.is_authenticated %}
+		// for the all time room
+    document.querySelector('#room-name-input').focus();
+	document.querySelector('#room-name-input').onkeyup = function(e) {
+		if (e.keyCode === 13) {  // enter, return
+            document.querySelector('#room-name-submit').click();
+        }
+    };
+
+    document.querySelector('#room-name-submit').onclick = function(e) {
+        var roomName = document.querySelector('#room-name-input').value;
+        window.location.pathname = '/room/' + roomName + '/';
+    };
+
+	{% else %}
+		// for the limited time room inputs
+	// document.querySelector('#room-input').focus();
+	// document.querySelector('#room-input').onkeyup = function(e) {
+	// 	if (e.keyCode === 13) {  // enter, return
+ //            document.querySelector('#room-submit').click();
+ //        }
+ //    };
+
+ //    document.querySelector('#room-submit').onclick = function(e) {
+ //        var roomName = document.querySelector('#room-input').value;
+ //        var handle = document.querySelector('#user-input').value;
+
+ //        window.location.pathname = '/quickchat/' + roomName + '/';
+ //    };
+	{% endif %}
+
+    
+</script>
+
+{% endblock content %}
