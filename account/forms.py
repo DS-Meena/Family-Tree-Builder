@@ -41,7 +41,11 @@ class AccountAuthenticationForm(forms.ModelForm):
 		if self.is_valid():
 			email = self.cleaned_data['email']
 			password = self.cleaned_data['password']
+
+			print(email, password)
+
 			if not authenticate(email=email, password=password):
+				print("wrong")
 				raise forms.ValidationError("Invalid login")
 
 # this class is for the user account details edit
