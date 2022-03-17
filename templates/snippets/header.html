@@ -50,7 +50,7 @@
 	<a class="navbar-brand headtitle" href="">FT Creator</a>
 
 	<!-- other options for other pages -->
-	<ul>
+	<ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin-left: 68%;">
 		<li class="nav-item">
 			<a class="nav-link headlinks" href="{% url 'create' %}">Create</a>
 		</li>
@@ -63,10 +63,41 @@
 
 		<!-- logout and account button -->
 		<li class="dropdown dropleft show p-w felxright">
-			
+			<div class="d-flex flex-row flexcont">
+				<div class="btn-group dropleft">
+					
+					<!-- image to click -->
+					<img class="account-image rounded-circle m-auto d-block dropdown-toggle" id="id_profile_links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  src="{% static 'icons/menu.png' %}" alt="my logo" width="40" height="40">
+
+					<!-- drop down menu -->
+					<div class="dropdown-menu" aria-labelledby="id_profile_links">
+						
+						<!-- changes here xxxxxxxxxxxxxxxx -->
+						<!-- account -->
+						<a class="dropdown-item" href="">Account</a>
+
+						<!-- logout -->
+						<a class="dropdown-item" href="">Logout</a>
+
+					</div>
+
+				</div>
+			</div>
 		</li>
 
+		{% else %}
+
+		lgogged out
+		<div class="flexright" style="margin-top:10px">
+			<!-- login and register button -->
+
+			<a class="btn btn-success margin " href="{% url 'login' %}">Login</a>
+
+			<a class="btn btn-outline-primary margin " href="{% url 'register' %}">Register</a>
+		</div>
+
 		{% endif %}
+
 	</ul>
 
 </nav>

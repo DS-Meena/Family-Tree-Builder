@@ -1,6 +1,41 @@
+<style type="text/css">
+    .div-center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+    }​
+
+</style>
+
 {% extends 'base.html' %}
 {% block content %}
 
 hey it's a home page
+
+
+<!-- the main thing  -->
+{% if request.user.is_authenticated %}
+
+<!-- a div block in the center of screen -->
+
+<div class="div-center">
+    <button>
+        <a class="nav-link headlinks" href="{% url 'create' %}">Create</a>
+    </button>
+</div>
+
+{% else %}
+    
+<div class="div-center">
+    <p>
+        Some details about the app.
+    </p>
+</div>
+
+{% endif %}
 
 {% endblock content %}
