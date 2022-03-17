@@ -25,8 +25,8 @@ class Account(AbstractBaseUser):
 	last_login				= models.DateTimeField(verbose_name='last login', auto_now=True)
 	hide_email				= models.BooleanField(default=True)
 
-	USERNAME_FIELD = 'username'
-	REQUIRED_FIELDS = ['email']
+	USERNAME_FIELD = 'email'
+	REQUIRED_FIELDS = ['username']
 
 	objects = MyAccountManager()
 

@@ -21,8 +21,12 @@ def register_view(request, *args, **kwargs):
 			form.save()
 			email = form.cleaned_data.get('email').lower()
 			raw_password = form.cleaned_data.get('password1')
+
+			print(email, raw_password)
+
 			account = authenticate(email=email, password=raw_password)
 			
+			print(account)
 			login(request, account)
 			
 			destination = kwargs.get("next")
