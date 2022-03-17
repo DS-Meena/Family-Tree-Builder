@@ -48,8 +48,8 @@ def login_view(request, *args, **kwargs):
 	if user.is_authenticated: 
 		return redirect("home")
 
-	# destination = get_redirect_if_exists(request)
-	# print("destination: " + str(destination))
+	destination = get_redirect_if_exists(request)
+	print("destination: " + str(destination))
 
 	if request.POST:
 		print("post")
