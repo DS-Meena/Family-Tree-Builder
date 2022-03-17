@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     
-# for the accounts apps
+# for the accounts apps - for users authentication while logging
 # user management database
 AUTH_USER_MODEL = 'account.Account'
 AUTHENTICATION_BACKENDS = ( 

@@ -85,3 +85,8 @@ def get_redirect_if_exists(request):
 		if request.GET.get("next"):
 			redirect = str(request.GET.get("next"))
 	return redirect
+
+# to logout user
+def logout_view(request):
+	logout(request)
+	return redirect("home")
