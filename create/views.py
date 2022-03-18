@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import individual, relationship
 from .forms import IndividualForm, RelationshipForm
 from .utils import *
+from account.models import Account
 
 # Create your views here.
 def create(request):
@@ -14,6 +15,11 @@ def create(request):
 
 		if form.is_valid():
 			new_individual = form.save(commit=False)
+
+			# add the user also
+			new_individual.User = request.user
+			print(request.user.username)
+
 			new_individual.save()
 
 		return redirect('/create')

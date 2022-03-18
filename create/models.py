@@ -1,4 +1,5 @@
 from django.db import models
+from account.models import Account
 
 # Create your models here.
 
@@ -33,6 +34,9 @@ class individual(models.Model):
 		null=True,
 		related_name='Spouse'
 		)
+
+	# add the corresponding user of this tree
+	user = models.OneToOneField(Account, models.SET_NULL, blank=True, null=True)
 
 	def __str__(self):
 		return self.name;
