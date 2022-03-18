@@ -3,11 +3,168 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+	<title>Build Family Tree</title>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="/static/create_styles.css">
+
+<!-- The family tree JS -->
+<script src="/static/familytree.js"></script>
+<script type="text/javascript">
+ // js code if you want can write here
+</script>
+
+<style type="text/css">
+	
+	
+</style>
+
 </head>
 <body>
 
-	<h3> Create your tree here</h3>
+	<h2>Your Family Tree</h2>
+
+    <table border = "1">
+    	<!-- this contains the tree -->
+    	<div style="width:100%; height:100%;" id="tree"/>
+   	</table>
+
+
+	<!-- ADD RELATIONSHIP FORM -->
+	<div class="form-popup" id="myForm" id="{{ind.id}}">
+	  <form action="create/relation/" method="POST" class="form-container">
+
+	    <!-- for the csrf verification required -->
+		{% csrf_token %}
+
+		<!-- Fields and button in same div -->
+		<div class="from-card">
+
+			{{relationForm.as_p}}
+
+		    <button type="submit" class="btn">relate</button>
+		    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+
+		</div>
+	  </form>
+	</div>
+
+	<!-- TO SHOW FORM BUTTON -->	
+	<button class="open-button" onclick="openForm()">Add Relation</button>
+
+
+	<!-- ADD INDIVIDUAL FORM -->
+	<div class="form-popup2" id="myIndForm">
+	  <form action="" method="POST" class="form-container">
+
+	    <!-- for the csrf verification required -->
+		{% csrf_token %}
+
+		<!-- Fields and button in same div -->
+		<div class="from-card">
+
+			{{form.as_p}}
+
+		    <button type="submit" class="btn">Add</button>
+		    <button type="button" class="btn cancel" onclick="closeIndForm()">Close</button>
+
+		</div>
+	  </form>
+	</div>
+
+	<!-- TO SHOW FORM BUTTON -->	
+	<button class="add-button" onclick="openIndForm()">Add Individual</button>
+
+	<!-- TO DELETE AN INDIVIDUAL -->
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+  var family = new FamilyTree(document.getElementById("tree"), {
+      mouseScrool: FamilyTree.none,
+      enableSearch: false,
+
+      nodeBinding: {
+          field_0: "name"
+      },
+
+      nodeMenu: {
+				remove: {
+					text:"Remove",
+					onClick: deleteInd
+				} 
+    	},
+
+      // MAKE THE FAMILY JSON FILE HERE
+      nodes: [
+      	{% for gen in family %}
+					{% for mem in gen %}
+					{ 
+						id: {{mem.id}}, 
+						
+						{% if mem.spouse != None %}
+						pids: [{{mem.spouse.id}}],
+						{% endif %}
+						{% if mem.mother != None %}
+						mid: {{mem.mother.id}},
+						{% endif %}
+						{% if mem.father != None %}
+						fid: {{mem.father.id}},
+						{% endif %}
+						
+						name: "{{mem.name}}",
+						
+						{% if mem.gender == "M" %}
+							gender: "male",
+						{% endif %}
+
+						{% if mem.gender == "F" %}
+							gender: "female",
+						{% endif %}
+					}, 
+					{% endfor %}
+				{% endfor %}
+      ] 
+
+  });
+
+  function deleteInd(nodeId) {
+    var nodeData = family.get(nodeId);
+    var employeeName = nodeData["name"];
+
+    var url = 'create/delete/' + nodeId;
+    window.location.href = url;
+    console.log(employeeName);
+}
+
+</script> 
+
+
+<!-- TO SHOW AND HIDE FORM -->
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+  
+  // when open one form other should be closed
+  closeIndForm()
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+
+function openIndForm() {
+  document.getElementById("myIndForm").style.display = "block";
+  closeForm()
+}
+
+function closeIndForm() {
+  document.getElementById("myIndForm").style.display = "none";
+}
+
+</script>
 
 </body>
 </html>
