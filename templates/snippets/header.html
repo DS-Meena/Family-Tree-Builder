@@ -57,32 +57,13 @@
 		<li class="nav-item">
 			<a class="nav-link headlinks" href="{% url 'about' %}">About</a>
 		</li>
-
+		
 		<!-- Main thing -->
 		{% if request.user.is_authenticated %}
 
-		<!-- logout and account button -->
-		<li class="dropdown dropleft show p-w felxright">
-			<div class="d-flex flex-row flexcont">
-				<div class="btn-group dropleft">
-					
-					<!-- image to click -->
-					<img class="account-image rounded-circle m-auto d-block dropdown-toggle" id="id_profile_links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  src="{% static 'icons/menu.png' %}" alt="my logo" width="40" height="40">
-
-					<!-- drop down menu -->
-					<div class="dropdown-menu" aria-labelledby="id_profile_links">
-						
-						<!-- changes here xxxxxxxxxxxxxxxx -->
-						<!-- account -->
-						<a class="dropdown-item" href="">Account</a>
-
-						<!-- logout -->
-						<a class="dropdown-item" href="{% url 'account:logout' %}">Logout</a>
-
-					</div>
-
-				</div>
-			</div>
+		<li class="nav-item">
+			<!-- logout -->
+			<a class="nav-link headlinks" href="{% url 'account:logout' %}">Logout</a>
 		</li>
 
 		{% else %}
