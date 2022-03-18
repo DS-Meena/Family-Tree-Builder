@@ -50,17 +50,17 @@
 	<a class="navbar-brand headtitle" href="{% url 'home' %}">FT Creator</a>
 
 	<!-- other options for other pages -->
-	<ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin-left: 68%;">
+	<ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin-left: 72%;">
+		
+		<!-- Main thing -->
+		{% if request.user.is_authenticated %}
+		
 		<li class="nav-item">
 			<a class="nav-link headlinks" href="{% url 'create' %}">Create</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link headlinks" href="{% url 'about' %}">About</a>
 		</li>
-		
-		<!-- Main thing -->
-		{% if request.user.is_authenticated %}
-
 		<li class="nav-item">
 			<!-- logout -->
 			<a class="nav-link headlinks" href="{% url 'account:logout' %}">Logout</a>
@@ -68,8 +68,7 @@
 
 		{% else %}
 
-		lgogged out
-		<div class="flexright" style="margin-top:10px">
+		<div class="flexright">
 			<!-- login and register button -->
 
 			<a class="btn btn-success margin " href="{% url 'account:login' %}">Login</a>
