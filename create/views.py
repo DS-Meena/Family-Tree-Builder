@@ -22,7 +22,7 @@ def create(request):
 		return redirect('/create')
 
 	# create multiple trees
-	trees = create_trees()
+	trees = create_trees(request.user.username)
 	print(trees)
 
 	form = IndividualForm

@@ -36,7 +36,7 @@ class individual(models.Model):
 		)
 
 	# add the corresponding user of this tree
-	user = models.CharField(max_length=30, unique=True, null=True)
+	user = models.CharField(max_length=30, null=True)
 
 	def __str__(self):
 		return self.name;
