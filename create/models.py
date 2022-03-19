@@ -36,7 +36,7 @@ class individual(models.Model):
 		)
 
 	# add the corresponding user of this tree
-	user = models.OneToOneField(Account, models.SET_NULL, blank=True, null=True)
+	user = models.CharField(max_length=30, unique=True, null=True)
 
 	def __str__(self):
 		return self.name;

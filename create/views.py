@@ -16,12 +16,9 @@ def create(request):
 		if form.is_valid():
 			new_individual = form.save(commit=False)
 
-			# add the user also
-			new_individual.User = request.user
-			print(request.user.username)
-
+			new_individual.user = request.user.username
 			new_individual.save()
-
+			
 		return redirect('/create')
 
 	# create multiple trees
