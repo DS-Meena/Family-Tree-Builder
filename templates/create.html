@@ -5,10 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Build Family Tree</title>
 
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
-
 <link rel="stylesheet" type="text/css" href="/static/create_styles.css">
 
 <!-- The family tree JS -->
@@ -25,10 +21,7 @@
 </head>
 <body>
 
-	<h2>Your Family Tree</h2>
-	<ul>
-		<li>First add the partner then add childs</li>
-	</ul>
+	<h2><a class="navbar-brand headtitle" href="{% url 'home' %}" style="text-decoration: None; color: black;">Your Family Tree</a></h2>
 
     <table border = "1">
     	<!-- this contains the tree -->
@@ -174,5 +167,3 @@ function closeIndForm() {
 
 </body>
 </html>
-
-{% endblock content %}
