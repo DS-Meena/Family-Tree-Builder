@@ -16,6 +16,14 @@ class individual(models.Model):
 
 	# # dob = models.DateField()
 
+	# add the corresponding user of this tree
+	user = models.CharField(max_length=30, blank=True, null=True)
+	# user = models.ForeignKey('Account',		
+	# 	models.SET_NULL,
+	# 	blank=True,
+	# 	null=True,
+	# 	)
+
 	mother = models.ForeignKey('self', 
 		models.SET_NULL, 
 		blank=True, 
@@ -34,9 +42,6 @@ class individual(models.Model):
 		null=True,
 		related_name='Spouse'
 		)
-
-	# add the corresponding user of this tree
-	user = models.CharField(max_length=30, null=True)
 
 	def __str__(self):
 		return self.name;
