@@ -3,7 +3,6 @@ from .models import individual
 def create_trees(username):
 	# we can try here to create a tree
 	roots = individual.objects.filter(user=username).filter(father=None).filter(mother=None)
-	print(roots)
 
 	# create multiple trees
 	trees = []
