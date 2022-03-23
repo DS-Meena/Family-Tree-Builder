@@ -44,19 +44,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300&display=swap" rel="stylesheet">
 
 <!-- navigation bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="width: auto;">
 	
 	<!-- the options in this bar -->
 	<a class="navbar-brand headtitle" style="color: whitesmoke; font-family: cursive;" href="{% url 'home' %}">FT Creator</a>
 
-	
-		
 		<!-- Main thing -->
 		{% if request.user.is_authenticated %}
 		
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<ul class="navbar-nav mr-auto" style="position: fixed; right: 7%; top: 1%;">
+			<li class="nav-item dropdown" style="position: absolute; right: 10px; margin-top: 10px;">
+	        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	          Goto
 	        </a>
 
@@ -72,24 +70,12 @@
 	      	
 	      	</li>
 
-
-			<li class="nav-item">
-				<a class="nav-link headlinks" href="{% url 'create' %}">Create</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link headlinks" href="{% url 'about' %}">About</a>
-			</li>
-			<li class="nav-item">
-				<!-- logout -->
-				<a class="nav-link headlinks" href="{% url 'account:logout' %}">Logout</a>
-			</li>
-
 		</ul>
 
 		{% else %}
 
 		<!-- other options for other pages -->
-		<ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin-left: 72%;">
+		<ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="position: absolute; right: 1%;">
 		
 			<div class="flexright">
 				<!-- login and register button -->
