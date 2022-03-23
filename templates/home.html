@@ -1,6 +1,6 @@
 <style type="text/css">
     .div-center{
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 50%;
     margin-top: -50px;
@@ -9,12 +9,13 @@
     height: 100px;
     }​
 
+
 </style>
 
 {% extends 'base.html' %}
 {% block content %}
 
-This is an web app created using django framework. This uses blankan ft organization library to create the family trees.
+This is an web app created using django framework. This uses blankan ft organization library to print the family trees.
 
 
 <!-- the main thing  -->
@@ -23,18 +24,16 @@ This is an web app created using django framework. This uses blankan ft organiza
 <!-- a div block in the center of screen -->
 
 <div class="div-center">
-    <button>
+    <button class="btn btn-dark">
         <a class="nav-link headlinks" href="{% url 'create' %}">Create</a>
     </button>
 </div>
 
 {% else %}
     
-<div class="div-center">
-    <p>
+    <p class="div-center" style="text-align: center; background-color: lightgoldenrodyellow;">
         Login to create your own Family tree.
     </p>
-</div>
 
 {% endif %}
 

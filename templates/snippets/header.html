@@ -47,38 +47,61 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	
 	<!-- the options in this bar -->
-	<a class="navbar-brand headtitle" href="{% url 'home' %}">FT Creator</a>
+	<a class="navbar-brand headtitle" style="color: whitesmoke; font-family: cursive;" href="{% url 'home' %}">FT Creator</a>
 
-	<!-- other options for other pages -->
-	<ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin-left: 72%;">
+	
 		
 		<!-- Main thing -->
 		{% if request.user.is_authenticated %}
 		
-		<li class="nav-item">
-			<a class="nav-link headlinks" href="{% url 'create' %}">Create</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link headlinks" href="{% url 'about' %}">About</a>
-		</li>
-		<li class="nav-item">
-			<!-- logout -->
-			<a class="nav-link headlinks" href="{% url 'account:logout' %}">Logout</a>
-		</li>
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          Goto
+	        </a>
+
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+	          <a class="dropdown-item" href="{% url 'create' %}">Create</a>
+	          <a class="dropdown-item" href="{% url 'about' %}">About</a>
+
+	          <div class="dropdown-divider"></div>
+	          <a class="dropdown-item" href="{% url 'account:logout' %}">Logout</a>
+	        
+	        </div>
+	      	
+	      	</li>
+
+
+			<li class="nav-item">
+				<a class="nav-link headlinks" href="{% url 'create' %}">Create</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link headlinks" href="{% url 'about' %}">About</a>
+			</li>
+			<li class="nav-item">
+				<!-- logout -->
+				<a class="nav-link headlinks" href="{% url 'account:logout' %}">Logout</a>
+			</li>
+
+		</ul>
 
 		{% else %}
 
-		<div class="flexright">
-			<!-- login and register button -->
-
-			<a class="btn btn-success margin " href="{% url 'account:login' %}">Login</a>
-
-			<a class="btn btn-outline-primary margin " href="{% url 'account:register' %}">Register</a>
+		<!-- other options for other pages -->
+		<ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin-left: 72%;">
 		
-		</div>
+			<div class="flexright">
+				<!-- login and register button -->
+
+				<a class="btn btn-info margin " href="{% url 'account:login' %}">Login</a>
+
+				<a class="btn btn-danger margin " href="{% url 'account:register' %}">Register</a>
+			
+			</div>
+
+		</ul>
 
 		{% endif %}
-
-	</ul>
 
 </nav>
