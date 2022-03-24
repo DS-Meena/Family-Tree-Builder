@@ -7,16 +7,24 @@
     margin-left: -50px;
     width: 100px;
     height: 100px;
-    }​
-
+    }
 
 </style>
 
 {% extends 'base.html' %}
 {% block content %}
 
-This is an web app created using django framework. This uses blankan ft organization library to print the family trees.
+<div class="details">
+    
+    <h2>Family Tree Creator</h2>
+    
+    <p>
+        In this app you can easily create your own personal tree. 
+        This web app has user functionality and your family tree would be private to you only.
+        This will help you organize your family history.
+    </p>
 
+</div>
 
 <!-- the main thing  -->
 {% if request.user.is_authenticated %}
