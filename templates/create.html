@@ -23,6 +23,10 @@
 		height: 100%;
 		}
 
+		#tree>svg {
+      background-color:  #fff798 ; 
+    }
+
 </style>
 
 </head>
@@ -33,6 +37,7 @@
     <table border = "1">
     	<!-- this contains the tree -->
     	<div style="width:100%; height:100%;" id="tree"/>
+
    	</table>
 
 
@@ -87,10 +92,15 @@
 <!-- JAVASCRIPT -->
 
 <script>
-
   var family = new FamilyTree(document.getElementById("tree"), {
       mouseScrool: FamilyTree.none,
       enableSearch: false,
+      editForm: {
+        buttons: {
+            edit: null,
+            share: null,
+        }
+    },
 
       nodeBinding: {
           field_0: "name"
